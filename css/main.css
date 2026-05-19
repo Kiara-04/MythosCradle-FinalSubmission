@@ -37,6 +37,10 @@ button {
     border: none;
     cursor: pointer;
     width: max-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .carousel-btn {
@@ -809,6 +813,7 @@ button:hover {
 
 .viewCradle {
     position: fixed;
+    width: 270px;
     bottom: 5%;
     right: 5%;
     background-color: var(--gold);
@@ -823,4 +828,183 @@ button:hover {
 
 .viewCradle:hover {
     background-color: var(--light-blue);
+}
+
+.cradleContainer {
+    position: fixed;
+    bottom: 20%;
+    right: 5%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--white);
+    padding: 10px 20px;
+    border-radius: 10px;
+    width: max-content;
+    padding: 20px;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+}
+
+.cartHeading {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: row;
+    gap: 10px;
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    font-size: 16pt;
+    color: var(--black);
+}
+
+.cartHeading h1 {
+    font-size: 24pt;
+}
+
+.cartHeading img {
+    width: 35px;
+    height: 36px;
+}
+
+.cartTable {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.cartTableHeadings {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    font-family: "Poppins", sans-serif;
+    font-weight: semi-bold;
+    font-size: 10pt;
+    color: var(--dark-blue);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    width: 600px;
+}
+
+.cartTableHeadings p {
+    width: 100px;
+}
+
+.cartTableListContainer {
+    display: flex;
+    flex-direction: column;
+    font-size: 10pt;
+    color: grey;
+    width: 600px
+}
+
+.cartTableItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.cartTableItem div {
+    width: 100px;
+}
+
+.bottomContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    width: 600px;
+}
+
+.totalContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    width: 100%;
+    font-family: "Poppins", sans-serif;
+    font-weight: semi-bold;
+    font-size: 12pt;
+    color: var(--dark-blue);
+    width: 500px;
+}
+
+.total {
+    width: 100px;
+}
+
+.clearContainer {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+}
+
+.clear {
+    color: var(--white);
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    font-size: 10pt;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(230, 44, 44);
+}
+
+.clear:hover {
+    background-color: rgb(255, 0, 0);
+}
+
+.cartTableControls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.minusItem, .plusItem, .removeItem {
+    color: var(--white);
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    font-size: 10pt;
+    border-radius: 30%;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    background-color: var(--dark-blue);
+}
+
+.minusItem:hover, .plusItem:hover {
+    background-color: var(--light-blue);
+}
+
+.removeItem {
+    background-color: rgb(230, 44, 44);
+}
+
+.removeItem:hover {
+    background-color: rgb(255, 0, 0);
+}
+
+
+.notificationContainer {
+    visibility: hidden;
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--gold);
+    color: var(--white);
+    padding: 15px 30px;
+    border-radius: 40px;
+    display: flex;
+    font-family: "Poppins", sans-serif;
+    font-size: 12pt;
 }
