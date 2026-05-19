@@ -649,10 +649,6 @@ button:hover {
     color: lightgrey;
 }
 
-.adoptQuantity.secondary {
-    background-color: var(--gold);
-}
-
 .adoptLine.secondary {
     background-color: rgba(255, 255, 255, 1);
 }
@@ -741,8 +737,12 @@ button:hover {
     align-items: center;
     color: var(--white);
     width: max-content;
-    background-color: var(--dark-blue);
     border-radius: 10px;
+    background-color: var(--dark-blue);
+}
+
+.adoptQuantity.secondary {
+    background-color: var(--gold);
 }
 
 .adoptQuantity p {
@@ -753,17 +753,25 @@ button:hover {
 }
 
 .adoptQuantity button {
-    pointer-events: none;
-}
-
-.adoptQuantityLeft {
     background-color: transparent;
     padding: 20px;
+    cursor: pointer;
 }
 
-.adoptQuantityRight {
-    background-color: transparent;
-    padding: 20px;
+.adoptQuantityLeft.secondary:hover {
+    background-color: var(--light-blue);
+}
+
+.adoptQuantityLeft:hover {
+    background-color: var(--gold);
+}
+
+.adoptQuantityRight:hover {
+    background-color: var(--gold);
+}
+
+.adoptQuantityRight.secondary:hover {
+    background-color: var(--light-blue);
 }
 
 .adoptButtons {
