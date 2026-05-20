@@ -1,3 +1,5 @@
+// ---------- CART SYSTEM ----------------- //
+
 let cradleStatus = false; // Variable to track the status of the cradle (open or closed)
 
 let toggleCradle = () => {
@@ -5,7 +7,7 @@ let toggleCradle = () => {
     console.log("Cradle " + cradleStatus); // Debugging
 
     if (cradleStatus) {
-        document.querySelector(".viewCradle div").textContent = "Close Cradle"; // Change the button text to "Close Cradle"
+        document.querySelector(".viewCradle div").textContent = "Continue Searching"; 
         document.querySelector(".cradleContainer").style.display = "flex"; // Show the cradle
     } else {
         document.querySelector(".viewCradle div").textContent = "View Cradle"; // Change the button text to "View Cradle"
@@ -55,8 +57,6 @@ let creatureDatabase = [
 ];
 
 let cart = [];
-
-document.querySelector(".empty").style.display = "flex";
 
 let overallTotal = 0; // Variable to keep track of the total price of the cart
 
@@ -304,3 +304,61 @@ let controls = (event) => {
     console.log(cart); // Debugging
 }
 
+// ---------- FORM SYSTEM ----------------- //
+
+let form = document.querySelector("#contactForm");
+
+let displayThankYouMessage = (name) => {
+    document.querySelector(".name").textContent = name;
+    document.querySelector(".contactFormContainer").style.display = "none";
+    document.querySelector(".message").style.display = "flex";
+}
+
+// let validateForm = () => {
+//     let isValid = true;
+
+//     let nameInput = document.getElementById("name");
+//     let emailInput = document.getElementById("email");
+//     let messageInput = document.getElementById("message");
+
+//     // Clear previous errors
+//     document.querySelectorAll(".error").forEach(el => el.textContent = "");
+//     document.querySelectorAll(".invalid").forEach(el => el.classList.remove("invalid"));
+
+//     if (nameInput.value.trim() === ""){
+//         // document.getElementById("nameError").textContent = "Full name is required.";
+//         // nameInput.classList.add("invalid");
+//         isValid = false;
+//     } 
+
+//     if (emailInput.value.trim() === ""){
+//         // document.getElementById("emailError").textContent = "Email address is required.";
+//         // emailInput.classList.add("invalid");
+//         // isValid = false;
+//     } else if (!emailInput.value.trim().includes("@")) {
+//         // document.getElementById("emailError").textContent = "Valid email is required.";
+//         // emailInput.classList.add("invalid");
+//         isValid = false;
+//     }
+
+//     if (messageInput.value.trim() === ""){
+//         // document.getElementById("messageError").textContent = "Message is required.";
+//         // messageInput.classList.add("invalid");
+//         isValid = false;
+//     } 
+
+//     return isValid;
+// }
+
+let collectData = (event) => {
+    event.preventDefault();
+
+    // if (validateForm() == false) {
+    //     return; // stop if form is invalid
+    // }
+
+    let fullName = document.getElementById("name").value.trim(); // fetch name
+    displayThankYouMessage(fullName);
+}
+
+form.addEventListener("submit", collectData)
