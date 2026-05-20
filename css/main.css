@@ -1008,3 +1008,17 @@ button:hover {
     font-family: "Poppins", sans-serif;
     font-size: 12pt;
 }
+
+.creatureQuantity {
+    padding-left: 10px;
+}
+
+.empty {
+    display: none;
+    justify-content: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 20pt;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    color: rgba(0, 0, 0, 0.2);
+}

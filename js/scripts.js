@@ -56,11 +56,28 @@ let creatureDatabase = [
 
 let cart = [];
 
+document.querySelector(".empty").style.display = "flex";
+
 let overallTotal = 0; // Variable to keep track of the total price of the cart
 
+let totalElement = document.querySelector(".total")
+
 let clearCart = () => {
-    cart = [];
+    cart = []; // Empty array
     overallTotal = 0; // Resetting the overall total back to 0 when the cart is cleared
+    let cartItems = document.querySelectorAll(".cartTableItem").forEach(el => el.remove()); // Remove HTML elements of all items
+
+    totalElement.textContent = "R " + overallTotal; // update Total
+
+    document.querySelector(".empty").style.display = "flex";
+
+    document.querySelector(".notification").textContent = `Removed ALL items from Cradle!`;
+    setTimeout(() => {
+        document.querySelector(".notificationContainer").style.visibility = "hidden"; // Hide the notification after 3 seconds
+    }, 3000);
+
+    document.querySelector(".notificationContainer").style.visibility = "visible"; // Show the notification
+
     console.log(cart); // Debugging
     console.log("Cart cleared. Total: R" + overallTotal); // Debugging
 }
@@ -70,10 +87,9 @@ let fetchQuantity = (event) => {
     let container = event.target.closest(".adoptButtons");
 
     // Then asking for the textContent inside the <p> element which resides inside the quantity class, then wrapping the result with the built-in parseInt() function to convert the textContent from a string into an integer
-    let quantityElement = parseInt(container.querySelector(".quantity").textContent);
-    console.log("Fetched Quantity: " + quantityElement); // Debugging
+    let quantity = parseInt(container.querySelector(".quantity").textContent);
 
-    return quantityElement;
+    return quantity;
 }
 
 let updateQuantity = (event, operation, quantity) => {
@@ -87,14 +103,19 @@ let updateQuantity = (event, operation, quantity) => {
     } else if (operation === "reset") {
         quantity = 0;
     }
-
-     // Changing the textContent of the <p> element to reflect the new quantity
+    // Changing the textContent of the <p> element to reflect the new quantity
     event.target.closest(".adoptButtons").querySelector(".quantity").textContent = quantity;
-    console.log("Updated Quantity: " + quantity); // Debugging
 }
 
-let notification = (quantity, creatureType) => {
-    document.querySelector(".notification").textContent = `+ ${quantity} ${creatureType} added to Cradle!`;
+let notification = (quantity, creatureType, operation) => {
+    if (operation == "+") {
+        document.querySelector(".notification").textContent = `${quantity} ${creatureType} ADDED to Cradle!`;
+    } else if (operation == "-") {
+        document.querySelector(".notification").textContent = `${quantity} ${creatureType} REMOVED from Cradle!`;
+    } else if (operation == "remove") {
+        document.querySelector(".notification").textContent = `${creatureType} REMOVED from Cradle!`;
+    }
+    
     document.querySelector(".notificationContainer").style.visibility = "visible"; // Show the notification
 
     setTimeout(() => {
@@ -106,54 +127,61 @@ let notification = (quantity, creatureType) => {
 let plus = (event) => {
     console.log("Plus button clicked"); // Debugging
     
-    let quantity = fetchQuantity(event);
+    let quantityNum = fetchQuantity(event);
 
-    updateQuantity(event, "plus", quantity);
+    updateQuantity(event, "plus", quantityNum);
 }
 
 let minus = (event) => {
     console.log("Minus button clicked"); // Debugging
     
-    let quantity = fetchQuantity(event);
+    let quantityNum = fetchQuantity(event);
 
-    updateQuantity(event, "minus", quantity);
+    updateQuantity(event, "minus", quantityNum);
 }
 
 
 let addToCart = (event) => {
     console.log("Add to Cart button clicked"); // Debugging
     
-    let quantity = fetchQuantity(event);
+    let creatureQuantity = fetchQuantity(event);
+    console.log("Fetched Quantity: " + creatureQuantity); // Debugging
 
-    if (quantity === 0) { // If the quantity is 0 exit this function
+    if (creatureQuantity === 0) { // If the quantity is 0 exit this function
+        console.log(cart);
         return; // Exit the function
     }
 
+    document.querySelector(".empty").style.display = "none";
+
     // Fetching the id of the button that was clicked which will tell us which creature to add to the cart because the id corresponds with our creature database array
     let creatureId = event.target.closest(".adoptButtons").id;
-    console.log(creatureId); // Debugging
 
     // Assigning the creature's properties based on the unique id we just fetched to correspond the details with our creature database
     let creatureName = creatureDatabase[creatureId].name;
     let creatureType = creatureDatabase[creatureId].type;
     let creaturePrice = creatureDatabase[creatureId].price;
 
-    // Checking if the creature is already in the cart by checking if any of the objects in the cart have the same id as the creature we are trying to add to prevent duplicate entries of the same creature in the cart and instead just update the quantity of the existing creature in the cart
+    console.log(`Creature ID: ${creatureId} Type: ${creatureType}`); // Debugging
+
+    // Checking if the creature is already in cart then just changing the values in the array instead of pushing a whole new object
     if (cart.some(checkId => checkId.id === creatureId)) { 
 
-        notification(quantity, creatureType); // Displaying the notification with the quantity added
+        notification(creatureQuantity, creatureType); // Displaying the notification with the quantity added
 
-        overallTotal += creaturePrice * quantity; // Adding the total price of the new quantity to the overall total
+        overallTotal += creaturePrice * creatureQuantity; // Adding the total price of the new quantity to the overall total
 
-        let existingCreature = cart.find(existingId => existingId.id === creatureId); // Finding the existing creature in the cart that has the same id as the creature we are trying to add
+        let existingCreature = cart.find(existingId => existingId.id === creatureId); // Finding the already existing creature in the cart
 
-        let originalQuantity = existingCreature.quantity; // Fetching the original quantity
+        let originalQuantity = existingCreature.quantity; // Fetching the original quantity number
 
-        let newQuantity = quantity + originalQuantity; // Adding the original quantity to the new quantity to get the updated quantity
+        let newQuantity = creatureQuantity + originalQuantity; // Adding the new quantity to the old one
 
-        existingCreature.quantity += quantity; // Updating the quantity of the existing creature in the cart to the new quantity
+        existingCreature.quantity += creatureQuantity; // Updating the quantity of the existing creature in the cart
         
         existingCreature.total = creaturePrice * newQuantity; // Updating the total price * new quantity
+
+        refreshCartHtml();
 
         console.log(cart); // Debugging
 
@@ -169,21 +197,110 @@ let addToCart = (event) => {
     name: creatureName,
     type: creatureType,
     price: creaturePrice,
-    quantity: quantity,
-    total: creaturePrice * quantity // Total price based on the quantity
+    quantity: creatureQuantity,
+    total: creaturePrice * creatureQuantity // Total price based on the quantity
     };
 
     cart.push(creatureData); // Adding the creature data to the cart array
 
-    overallTotal += creaturePrice * quantity; // Adding the total price of the new amount of creature/s to the overall total
+    overallTotal += creaturePrice * creatureQuantity; // Adding the total price of the new amount of creature/s to the overall total
 
-    notification(quantity, creatureType); // Displaying the notification with the quantity added
+    notification(creatureQuantity, creatureType, "+"); // Displaying the notification with the quantity added
 
-    quantity = 0; // Resetting the quantity back to 0 after adding to cart
-    updateQuantity(event, "reset", quantity); // Updating the quantity display back to 0
+    // input data to html
+    refreshCartHtml();
+
+    updateQuantity(event, "reset"); // Updating the quantity display back to 0
 
     console.log(cart); // Debugging
 
     console.log("Overall Total: " + overallTotal); // Debugging
+}
+
+let refreshCartHtml = () => {
+    let items = document.querySelectorAll(".cartTableItem").forEach(el => el.remove());
+
+    let targetElement = document.querySelector(".bottomContainer");
+
+    for (let i = 0; i < cart.length; i++) {
+
+        let htmlString = `
+            <div class="cartTableItem" id="creatureId${cart[i].id}">
+                <div class="creatureQuantity">${cart[i].quantity}</div>
+                <div class="creatureType">${cart[i].type}</div>
+                <div class="creatureName">${cart[i].name}</div>
+                <div class="creaturePrice">R ${cart[i].price}</div>
+                <div class="creatureTotal">R ${cart[i].total}</div>
+                <div class="cartTableControls">
+                    <button class="minusItem" onclick="controls(event)">-</button>
+                    <button class="plusItem" onclick="controls(event)">+</button>
+                    <button class="removeItem" onclick="controls(event)">X</button>
+                </div>
+            </div>
+        `;
+
+        targetElement.insertAdjacentHTML('beforebegin', htmlString)
+    }
+
+    totalElement.textContent = "R " + overallTotal;
+}
+
+let controls = (event) => {
+
+    let creatureId = event.target.closest(".cartTableItem").id.slice(-1); // Finding cartTableItem class then its id then slicing off the last character of the string to get the id of the creature
+    let cartIndex = cart.findIndex(item => item.id == creatureId); // Find index of the creature in the cart
+
+    console.log("Creature ID:" + creatureId + " " + cart[cartIndex].type); // Debugging
+    console.log("Current Quantity: " + cart[cartIndex].quantity);
+
+    let item = cart[cartIndex]; // creating a temp version of the objects at the selected index
+
+    let targetClass = event.target.className; // fetching class name of the control
+    console.log(targetClass); // Debugging
+
+    switch (targetClass) {
+        case "minusItem":
+            item.quantity--;
+            item.total = item.quantity * item.price;
+            overallTotal -= item.price;
+
+            if (item.quantity === 0) {
+                let string = item.type
+                overallTotal -= item.total; // Remove from total
+                cart.splice(cartIndex, 1); // Dropping the removed item
+                notification(0, item.type, "remove")
+                console.log("Removed: " + item.type + "from cart" )
+            } else {
+                cart[cartIndex] = item; // updating the array with the new values
+                notification(1, item.type, "-")
+                console.log("New Quantity: " + cart[cartIndex].quantity);
+            }
+            break;
+
+        case "plusItem":
+            item.quantity++;
+            item.total = item.quantity * item.price;
+            overallTotal += item.price;
+            cart[cartIndex] = item; // updating the array with the new values
+            notification(1, item.type, "+")
+            console.log("New Quantity: " + cart[cartIndex].quantity);
+            break;
+
+        case "removeItem":
+            overallTotal -= item.total; // Remove from total
+            cart.splice(cartIndex, 1); // Dropping the removed item
+            notification(0, item.type, "remove")
+            break;
+    }
+
+    refreshCartHtml(); // Refresh
+
+    if (cart.length == 0) {
+        document.querySelector(".empty").style.display = "flex";
+    } else {
+        document.querySelector(".empty").style.display = "none";
+    }
+
+    console.log(cart); // Debugging
 }
 
