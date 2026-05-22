@@ -237,7 +237,6 @@ let refreshCartHtml = () => {
 }
 
 let controls = (event) => {
-
     let creatureId = event.target.closest(".cartTableItem").id.slice(-1); 
     let cartIndex = cart.findIndex(item => item.id == creatureId); 
 
@@ -311,4 +310,39 @@ let collectData = (event) => {
     displayThankYouMessage(fullName);
 }
 
-form.addEventListener("submit", collectData)
+if (form) {
+    form.addEventListener("submit", collectData)
+}
+
+// ---------- SEARCH SYSTEM ----------------- //
+
+let dropDownStatus = false;
+
+console.log(dropDownStatus);
+
+let toggleDropdown = () => {
+    dropDownStatus = !dropDownStatus;
+    console.log(dropDownStatus);
+
+    if (dropDownStatus) {
+        document.getElementById("dropDown").style.display = "flex";
+    } else {
+        document.getElementById("dropDown").style.display = "none";
+    }
+}
+
+let filter = () => {
+    let input = document.getElementById("searchInput").value.toUpperCase();
+
+    document.querySelectorAll("#dropDown a").forEach(link => {
+        link.style.display = link.textContent.toUpperCase().includes(input) ? "" : "none"
+    });
+}
+
+document.querySelectorAll("#dropDown a").forEach(link => {
+    link.addEventListener("click", toggleDropdown)
+});
+
+document.getElementById("searchInput").addEventListener("focus", toggleDropdown);
+
+document.getElementById("searchInput").addEventListener("keyup", filter);

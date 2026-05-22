@@ -1,0 +1,27 @@
+Reference List
+
+HTML DOM Element closest() Method. (n.d.). Www.w3schools.com. https://www.w3schools.com/jsref/met_element_closest.asp
+
+JavaScript Array forEach() Method. (n.d.). Www.w3schools.com. https://www.w3schools.com/jsref/jsref_foreach.asp
+
+HTML DOM Element remove Method. (n.d.). Www.w3schools.com. https://www.w3schools.com/jsref/met_element_remove.asp
+
+W3Schools.com. (2026). W3schools.com. https://www.w3schools.com/jsref//met_win_settimeout.asp
+
+‌W3Schools. (2019). JavaScript parseInt() Function. W3schools.com. https://www.w3schools.com/jsref/jsref_parseint.asp
+
+‌JavaScript Array slice() Method. (n.d.). Www.w3schools.com. https://www.w3schools.com/jsref/jsref_slice_array.asp
+
+‌JavaScript Array splice() Method. (2019). W3schools.com. https://www.w3schools.com/jsref/jsref_splice.asp
+
+‌W3Schools. (n.d.). JavaScript Switch Statement. Www.w3schools.com. https://www.w3schools.com/js/js_switch.asp
+
+‌Java Short Hand If...Else (Ternary Operator). (n.d.). Www.w3schools.com. https://www.w3schools.com/java/java_conditions_shorthand.asp
+
+‌JavaScript DOM Nodelist. (n.d.). Www.w3schools.com. https://www.w3schools.com/js/js_htmldom_nodelist.asp
+
+‌w3schools. (n.d.). HTML DOM addEventListener() Method. Www.w3schools.com. https://www.w3schools.com/jsref/met_element_addeventlistener.asp
+
+‌HTML a target Attribute. (n.d.). Www.w3schools.com. https://www.w3schools.com/tags/att_a_target.asp
+
+‌
