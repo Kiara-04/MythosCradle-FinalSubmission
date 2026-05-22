@@ -275,7 +275,7 @@ button:hover {
 
 .aboutHeading {
     font-family: "Poppins", sans-serif;
-    font-size: 40pt;
+    font-size: 35pt;
     font-weight: bold;
     color: var(--white);
 }
@@ -286,7 +286,7 @@ button:hover {
 
 .aboutText {
     font-family: "Poppins", sans-serif;
-    font-size: 16pt;
+    font-size: 14pt;
     color: var(--white);
 }
 
@@ -322,7 +322,7 @@ button:hover {
 
 .success h1 {
     font-family: "Poppins", sans-serif;
-    font-size: 40pt;
+    font-size: 35pt;
     font-weight: bold;
     color: var(--white);
     text-align: center;
@@ -593,7 +593,7 @@ button:hover {
 
 .adoptDescription h1 {
     font-family: "metamorphous", serif;
-    font-size: 40pt;
+    font-size: 35pt;
     color: var(--gold);
     text-align: center;
     width: 100%;
