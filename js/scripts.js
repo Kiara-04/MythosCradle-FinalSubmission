@@ -74,7 +74,7 @@ let clearCart = () => {
         document.querySelector(".notificationContainer").style.visibility = "hidden";
     }, 1500);
 
-    console.log(cart); // Debugging
+    console.log(cart);
     console.log("Cart cleared. Total: R" + overallTotal);
 }
 
@@ -165,29 +165,25 @@ let addToCart = (event) => {
 
     if (cart.some(checkId => checkId.id === creatureId)) { 
 
-        notification(creatureQuantity, creatureType); // Displaying the notification with the quantity added
+        notification(creatureQuantity, creatureType); 
 
-        overallTotal += creaturePrice * creatureQuantity; // Adding the total price of the new quantity to the overall total
+        overallTotal += creaturePrice * creatureQuantity; 
 
-        let existingCreature = cart.find(existingId => existingId.id === creatureId); // Finding the already existing creature in the cart
+        let existingCreature = cart.find(existingId => existingId.id === creatureId); 
+        existingCreature.quantity += creatureQuantity; 
 
-        let originalQuantity = existingCreature.quantity; // Fetching the original quantity number
-
-        let newQuantity = creatureQuantity + originalQuantity; // Adding the new quantity to the old one
-
-        existingCreature.quantity += creatureQuantity; // Updating the quantity of the existing creature in the cart
-        
-        existingCreature.total = creaturePrice * newQuantity; // Updating the total price * new quantity
+        let originalQuantity = existingCreature.quantity; 
+        let newQuantity = creatureQuantity + originalQuantity;
+        existingCreature.total = creaturePrice * newQuantity; 
 
         refreshCartHtml();
 
-        console.log(cart); // Debugging
+        console.log(cart); 
 
-        quantity = 0; // Resetting the quantity back to 0 after adding to cart
+        creatureQuantity = 0; 
+        updateQuantity(event, "reset", creatureQuantity);
 
-        updateQuantity(event, "reset", quantity); // Updating the quantity display back to 0
-
-        return; // Exit the function if the creature is already in the cart
+        return; 
     }
 
     let creatureData = {
