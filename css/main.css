@@ -166,10 +166,9 @@ button:hover {
 
 .heroText {
     position: absolute;
-    top: 50%;
-    right: 0;
+    top: 60%;
+    right: 2%;
     width: auto;
-    margin: 15px 150px 0 0;
     padding: 0;
     text-align: left;
 }
@@ -177,13 +176,13 @@ button:hover {
 .heroHeading {
     color: var(--gold);
     font-family: "egyptian", serif;
-    font-size: 86pt;
+    font-size: 60pt;
 }
 
 .heroSubHeading {
     color: var(--white);
     font-family: "metamorphous", serif;
-    font-size: 24pt;
+    font-size: 19pt;
 }
 
 .aboutSection {
