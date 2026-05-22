@@ -1,20 +1,18 @@
 // ---------- CART SYSTEM ----------------- //
 
-let cradleStatus = false; // Variable to track the status of the cradle (open or closed)
+let cradleStatus = false;
 
 let toggleCradle = () => {
     cradleStatus = !cradleStatus; 
-    console.log("Cradle " + cradleStatus); // Debugging
+    console.log("Cradle " + cradleStatus);
 
     if (cradleStatus) {
-        document.querySelector(".cradleContainer").style.display = "flex"; // Show the cradle
+        document.querySelector(".cradleContainer").style.display = "flex";
     } else {
-        document.querySelector(".cradleContainer").style.display = "none"; // Hide the cradle
+        document.querySelector(".cradleContainer").style.display = "none";
     }
 }
 
-// Creature Database
-// Each creature will have a unique ID starting from 0 so that it is easy to reference the ID as the index of creature in this array serving as a mini database which we can collect information from
 let creatureDatabase = [
     {
         id: 0,
@@ -55,33 +53,33 @@ let creatureDatabase = [
 
 ];
 
-let cart = []; // cart array to manage items in cart
+let cart = [];
 
-let overallTotal = 0; // Variable to keep track of the total price of the cart
+let overallTotal = 0;
 
-let totalElement = document.querySelector(".total") // total element selector
+let totalElement = document.querySelector(".total")
 
 let clearCart = () => {
-    cart = []; // Empty cart
-    overallTotal = 0; // Resetting the overall total
-    document.querySelectorAll(".cartTableItem").forEach(el => el.remove()); // Remove the HTML of the items
+    cart = [];
+    overallTotal = 0;
+    document.querySelectorAll(".cartTableItem").forEach(el => el.remove());
 
-    totalElement.textContent = "R " + overallTotal; // update Total
+    totalElement.textContent = "R " + overallTotal;
 
-    document.querySelector(".empty").style.display = "flex"; // Display empty Cradle message
+    document.querySelector(".empty").style.display = "flex";
 
-    document.querySelector(".notification").textContent = `Removed ALL items from Cradle!`; // Edit notification
-    document.querySelector(".notificationContainer").style.visibility = "visible"; // Show notification
+    document.querySelector(".notification").textContent = `Removed ALL items from Cradle!`;
+    document.querySelector(".notificationContainer").style.visibility = "visible";
     setTimeout(() => {
-        document.querySelector(".notificationContainer").style.visibility = "hidden"; // Hide notification after 1.5 seconds
+        document.querySelector(".notificationContainer").style.visibility = "hidden";
     }, 1500);
 
     console.log(cart); // Debugging
-    console.log("Cart cleared. Total: R" + overallTotal); // Debugging
+    console.log("Cart cleared. Total: R" + overallTotal);
 }
 
 let fetchQuantity = (event) => {
-    // Asking for the closest container to be able to reference the correct <p> element
+
     let container = event.target.closest(".adoptButtons");
 
     let quantity = parseInt(container.querySelector(".quantity").textContent);
@@ -91,17 +89,17 @@ let fetchQuantity = (event) => {
 
 let updateQuantity = (event, operation, quantity) => {
     if (operation === "plus") {
-        quantity++; // +1 to the quantity
+        quantity++; 
     } else if (operation === "minus") {
-        if (quantity <= 0) { // If the quantity is equal to 0 or less than 0 exit this function
+        if (quantity <= 0) {
         return;
         }
-        quantity--; // -1 to the quantity
+        quantity--; 
     } else if (operation === "reset") {
         quantity = 0;
     }
-    console.log("quantity updated " + quantity); // Debugging
-    // Changing the textContent of the <p> element to reflect the new quantity
+    console.log("quantity updated " + quantity); 
+
     event.target.closest(".adoptButtons").querySelector(".quantity").textContent = quantity;
 }
 
@@ -114,60 +112,57 @@ let notification = (quantity, creatureType, operation) => {
         document.querySelector(".notification").textContent = `${creatureType} REMOVED from Cradle!`;
     }
     
-    document.querySelector(".notificationContainer").style.visibility = "visible"; // Show the notification
+    document.querySelector(".notificationContainer").style.visibility = "visible"; 
 
     setTimeout(() => {
-        document.querySelector(".notificationContainer").style.visibility = "hidden"; // Hide the notification after 3 seconds
+        document.querySelector(".notificationContainer").style.visibility = "hidden"; 
      }, 1500);
 }
 
 
 let plus = (event) => {
-    console.log("Plus button clicked"); // Debugging
+    console.log("Plus button clicked"); 
     
     let quantityNum = fetchQuantity(event);
 
-    console.log("quantityNum " + quantityNum); // Debugging
+    console.log("quantityNum " + quantityNum); 
 
     updateQuantity(event, "plus", quantityNum);
 }
 
 let minus = (event) => {
-    console.log("Minus button clicked"); // Debugging
+    console.log("Minus button clicked"); 
     
     let quantityNum = fetchQuantity(event);
 
-    console.log("quantityNum " + quantityNum); // Debugging
+    console.log("quantityNum " + quantityNum); 
 
     updateQuantity(event, "minus", quantityNum);
 }
 
 
 let addToCart = (event) => {
-    console.log("Add to Cart button clicked"); // Debugging
+    console.log("Add to Cart button clicked"); 
     
     let creatureQuantity = fetchQuantity(event);
-    console.log("Fetched Quantity: " + creatureQuantity); // Debugging
+    console.log("Fetched Quantity: " + creatureQuantity); 
 
-    if (creatureQuantity === 0) { // If the quantity is 0 exit this function
+    if (creatureQuantity === 0) { 
         console.log(cart);
-        return; // Exit the function
+        return; 
     }
 
     document.querySelector(".empty").style.display = "none";
 
-    // Fetching the id of the button that was clicked which will tell us which creature to add to the cart because the id corresponds with our creature database array
     let creatureId = event.target.closest(".adoptButtons").id;
 
-    // Assigning the creature's properties based on the unique id we just fetched to correspond the details with our creature database
     let creatureName = creatureDatabase[creatureId].name;
     let creatureType = creatureDatabase[creatureId].type;
     let creaturePrice = creatureDatabase[creatureId].price;
 
-    console.log(`Creature ID: ${creatureId} Type: ${creatureType}`); // Debugging
-    notification(creatureQuantity, creatureType, "+"); // Displaying the notification with the quantity added
+    console.log(`Creature ID: ${creatureId} Type: ${creatureType}`); 
+    notification(creatureQuantity, creatureType, "+"); 
 
-    // Checking if the creature is already in cart then just changing the values in the array instead of pushing a whole new object
     if (cart.some(checkId => checkId.id === creatureId)) { 
 
         notification(creatureQuantity, creatureType); // Displaying the notification with the quantity added
@@ -201,23 +196,20 @@ let addToCart = (event) => {
     type: creatureType,
     price: creaturePrice,
     quantity: creatureQuantity,
-    total: creaturePrice * creatureQuantity // Total price based on the quantity
+    total: creaturePrice * creatureQuantity 
     };
 
-    cart.push(creatureData); // Adding the creature data to the cart array
+    cart.push(creatureData); 
 
-    overallTotal += creaturePrice * creatureQuantity; // Adding the total price of the new amount of creature/s to the overall total
+    overallTotal += creaturePrice * creatureQuantity; 
 
-    // notification(creatureQuantity, creatureType, "+"); // Displaying the notification with the quantity added
-
-    // input data to html
     refreshCartHtml();
 
-    updateQuantity(event, "reset"); // Updating the quantity display back to 0
+    updateQuantity(event, "reset"); 
 
-    console.log(cart); // Debugging
+    console.log(cart); 
 
-    console.log("Overall Total: " + overallTotal); // Debugging
+    console.log("Overall Total: " + overallTotal); 
 }
 
 let refreshCartHtml = () => {
@@ -250,16 +242,16 @@ let refreshCartHtml = () => {
 
 let controls = (event) => {
 
-    let creatureId = event.target.closest(".cartTableItem").id.slice(-1); // Finding cartTableItem class then its id then slicing off the last character of the string to get the id of the creature
-    let cartIndex = cart.findIndex(item => item.id == creatureId); // Find index of the creature in the cart
+    let creatureId = event.target.closest(".cartTableItem").id.slice(-1); 
+    let cartIndex = cart.findIndex(item => item.id == creatureId); 
 
-    console.log("Creature ID:" + creatureId + " " + cart[cartIndex].type); // Debugging
+    console.log("Creature ID:" + creatureId + " " + cart[cartIndex].type); 
     console.log("Current Quantity: " + cart[cartIndex].quantity);
 
-    let item = cart[cartIndex]; // creating a temp version of the objects at the selected index
+    let item = cart[cartIndex]; 
 
-    let targetClass = event.target.className; // fetching class name of the control
-    console.log(targetClass); // Debugging
+    let targetClass = event.target.className; 
+    console.log(targetClass); 
 
     switch (targetClass) {
         case "minusItem":
@@ -269,12 +261,12 @@ let controls = (event) => {
 
             if (item.quantity === 0) {
                 let string = item.type
-                overallTotal -= item.total; // Remove from total
-                cart.splice(cartIndex, 1); // Dropping the removed item
+                overallTotal -= item.total; 
+                cart.splice(cartIndex, 1); 
                 notification(0, item.type, "remove")
                 console.log("Removed: " + item.type + "from cart" )
             } else {
-                cart[cartIndex] = item; // updating the array with the new values
+                cart[cartIndex] = item; 
                 notification(1, item.type, "-")
                 console.log("New Quantity: " + cart[cartIndex].quantity);
             }
@@ -284,19 +276,19 @@ let controls = (event) => {
             item.quantity++;
             item.total = item.quantity * item.price;
             overallTotal += item.price;
-            cart[cartIndex] = item; // updating the array with the new values
+            cart[cartIndex] = item; 
             notification(1, item.type, "+")
             console.log("New Quantity: " + cart[cartIndex].quantity);
             break;
 
         case "removeItem":
-            overallTotal -= item.total; // Remove from total
-            cart.splice(cartIndex, 1); // Dropping the removed item
+            overallTotal -= item.total; 
+            cart.splice(cartIndex, 1); 
             notification(0, item.type, "remove")
             break;
     }
 
-    refreshCartHtml(); // Refresh
+    refreshCartHtml(); 
 
     if (cart.length == 0) {
         document.querySelector(".empty").style.display = "flex";
@@ -304,7 +296,7 @@ let controls = (event) => {
         document.querySelector(".empty").style.display = "none";
     }
 
-    console.log(cart); // Debugging
+    console.log(cart); 
 }
 
 // ---------- FORM SYSTEM ----------------- //
@@ -319,11 +311,6 @@ let displayThankYouMessage = (name) => {
 
 let collectData = (event) => {
     event.preventDefault();
-
-    // if (validateForm() == false) {
-    //     return; // stop if form is invalid
-    // }
-
     let fullName = document.getElementById("name").value.trim(); // fetch name
     displayThankYouMessage(fullName);
 }
