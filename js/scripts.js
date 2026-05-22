@@ -84,7 +84,6 @@ let fetchQuantity = (event) => {
     // Asking for the closest container to be able to reference the correct <p> element
     let container = event.target.closest(".adoptButtons");
 
-    // Then asking for the textContent inside the <p> element which resides inside the quantity class, then wrapping the result with the built-in parseInt() function to convert the textContent from a string into an integer
     let quantity = parseInt(container.querySelector(".quantity").textContent);
 
     return quantity;
@@ -101,6 +100,7 @@ let updateQuantity = (event, operation, quantity) => {
     } else if (operation === "reset") {
         quantity = 0;
     }
+    console.log("quantity updated " + quantity); // Debugging
     // Changing the textContent of the <p> element to reflect the new quantity
     event.target.closest(".adoptButtons").querySelector(".quantity").textContent = quantity;
 }
@@ -127,6 +127,8 @@ let plus = (event) => {
     
     let quantityNum = fetchQuantity(event);
 
+    console.log("quantityNum " + quantityNum); // Debugging
+
     updateQuantity(event, "plus", quantityNum);
 }
 
@@ -134,6 +136,8 @@ let minus = (event) => {
     console.log("Minus button clicked"); // Debugging
     
     let quantityNum = fetchQuantity(event);
+
+    console.log("quantityNum " + quantityNum); // Debugging
 
     updateQuantity(event, "minus", quantityNum);
 }
@@ -161,6 +165,7 @@ let addToCart = (event) => {
     let creaturePrice = creatureDatabase[creatureId].price;
 
     console.log(`Creature ID: ${creatureId} Type: ${creatureType}`); // Debugging
+    notification(creatureQuantity, creatureType, "+"); // Displaying the notification with the quantity added
 
     // Checking if the creature is already in cart then just changing the values in the array instead of pushing a whole new object
     if (cart.some(checkId => checkId.id === creatureId)) { 
@@ -203,7 +208,7 @@ let addToCart = (event) => {
 
     overallTotal += creaturePrice * creatureQuantity; // Adding the total price of the new amount of creature/s to the overall total
 
-    notification(creatureQuantity, creatureType, "+"); // Displaying the notification with the quantity added
+    // notification(creatureQuantity, creatureType, "+"); // Displaying the notification with the quantity added
 
     // input data to html
     refreshCartHtml();
