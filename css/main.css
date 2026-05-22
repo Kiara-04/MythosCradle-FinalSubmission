@@ -962,11 +962,15 @@ button:hover {
 }
 
 .cartTableItem img {
-    width: 150px;
+    width: 120px;
     height: 100px;
     object-fit: cover;
     border-radius: 20px;
 }
+
+/* .creatureQuantity {
+    padding-left: 100px;
+} */
 
 .bottomContainer {
     display: flex;
@@ -985,7 +989,7 @@ button:hover {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 1050px;
+    width: 900px;
     font-family: "Poppins", sans-serif;
     font-weight: semi-bold;
     font-size: 20pt;
@@ -1000,6 +1004,7 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    justify-self: center;
     width: auto;
 }
 
@@ -1008,7 +1013,7 @@ button:hover {
     font-family: "Poppins", sans-serif;
     font-weight: bold;
     font-size: 12pt;
-    padding: 7px 12px;
+    padding: 8px 20px;
     border: none;
     cursor: pointer;
     background-color: rgb(230, 44, 44);
