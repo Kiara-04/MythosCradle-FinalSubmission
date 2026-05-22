@@ -1066,7 +1066,7 @@ button:hover {
 .notificationContainer {
     visibility: hidden;
     position: fixed;
-    top: 25%;
+    bottom: 10%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: var(--gold);
@@ -1075,7 +1075,9 @@ button:hover {
     border-radius: 40px;
     display: flex;
     font-family: "Poppins", sans-serif;
+    font-weight: 500;
     font-size: 12pt;
+    z-index: 1001;
 }
 
 .creatureQuantity {

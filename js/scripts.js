@@ -7,14 +7,13 @@ let toggleCradle = () => {
     console.log("Cradle " + cradleStatus); // Debugging
 
     if (cradleStatus) {
-        document.querySelector(".viewCradle div").textContent = "Continue Searching"; 
         document.querySelector(".cradleContainer").style.display = "flex"; // Show the cradle
     } else {
-        document.querySelector(".viewCradle div").textContent = "View Cradle"; // Change the button text to "View Cradle"
         document.querySelector(".cradleContainer").style.display = "none"; // Hide the cradle
     }
 }
 
+// Creature Database
 // Each creature will have a unique ID starting from 0 so that it is easy to reference the ID as the index of creature in this array serving as a mini database which we can collect information from
 let creatureDatabase = [
     {
@@ -56,27 +55,26 @@ let creatureDatabase = [
 
 ];
 
-let cart = [];
+let cart = []; // cart array to manage items in cart
 
 let overallTotal = 0; // Variable to keep track of the total price of the cart
 
-let totalElement = document.querySelector(".total")
+let totalElement = document.querySelector(".total") // total element selector
 
 let clearCart = () => {
-    cart = []; // Empty array
-    overallTotal = 0; // Resetting the overall total back to 0 when the cart is cleared
-    let cartItems = document.querySelectorAll(".cartTableItem").forEach(el => el.remove()); // Remove HTML elements of all items
+    cart = []; // Empty cart
+    overallTotal = 0; // Resetting the overall total
+    document.querySelectorAll(".cartTableItem").forEach(el => el.remove()); // Remove the HTML of the items
 
     totalElement.textContent = "R " + overallTotal; // update Total
 
-    document.querySelector(".empty").style.display = "flex";
+    document.querySelector(".empty").style.display = "flex"; // Display empty Cradle message
 
-    document.querySelector(".notification").textContent = `Removed ALL items from Cradle!`;
+    document.querySelector(".notification").textContent = `Removed ALL items from Cradle!`; // Edit notification
+    document.querySelector(".notificationContainer").style.visibility = "visible"; // Show notification
     setTimeout(() => {
-        document.querySelector(".notificationContainer").style.visibility = "hidden"; // Hide the notification after 3 seconds
-    }, 3000);
-
-    document.querySelector(".notificationContainer").style.visibility = "visible"; // Show the notification
+        document.querySelector(".notificationContainer").style.visibility = "hidden"; // Hide notification after 1.5 seconds
+    }, 1500);
 
     console.log(cart); // Debugging
     console.log("Cart cleared. Total: R" + overallTotal); // Debugging
@@ -97,7 +95,7 @@ let updateQuantity = (event, operation, quantity) => {
         quantity++; // +1 to the quantity
     } else if (operation === "minus") {
         if (quantity <= 0) { // If the quantity is equal to 0 or less than 0 exit this function
-        return; // Exit the function
+        return;
         }
         quantity--; // -1 to the quantity
     } else if (operation === "reset") {
@@ -120,7 +118,7 @@ let notification = (quantity, creatureType, operation) => {
 
     setTimeout(() => {
         document.querySelector(".notificationContainer").style.visibility = "hidden"; // Hide the notification after 3 seconds
-     }, 3000);
+     }, 1500);
 }
 
 
@@ -313,42 +311,6 @@ let displayThankYouMessage = (name) => {
     document.querySelector(".contactFormContainer").style.display = "none";
     document.querySelector(".message").style.display = "flex";
 }
-
-// let validateForm = () => {
-//     let isValid = true;
-
-//     let nameInput = document.getElementById("name");
-//     let emailInput = document.getElementById("email");
-//     let messageInput = document.getElementById("message");
-
-//     // Clear previous errors
-//     document.querySelectorAll(".error").forEach(el => el.textContent = "");
-//     document.querySelectorAll(".invalid").forEach(el => el.classList.remove("invalid"));
-
-//     if (nameInput.value.trim() === ""){
-//         // document.getElementById("nameError").textContent = "Full name is required.";
-//         // nameInput.classList.add("invalid");
-//         isValid = false;
-//     } 
-
-//     if (emailInput.value.trim() === ""){
-//         // document.getElementById("emailError").textContent = "Email address is required.";
-//         // emailInput.classList.add("invalid");
-//         // isValid = false;
-//     } else if (!emailInput.value.trim().includes("@")) {
-//         // document.getElementById("emailError").textContent = "Valid email is required.";
-//         // emailInput.classList.add("invalid");
-//         isValid = false;
-//     }
-
-//     if (messageInput.value.trim() === ""){
-//         // document.getElementById("messageError").textContent = "Message is required.";
-//         // messageInput.classList.add("invalid");
-//         isValid = false;
-//     } 
-
-//     return isValid;
-// }
 
 let collectData = (event) => {
     event.preventDefault();
