@@ -18,37 +18,43 @@ let creatureDatabase = [
         id: 0,
         type: "Blue Dragon",
         name: "Azuron",
-        price: 2500
+        price: 2500,
+        image: "../assets/Images/adopt1.png"
     },
     {
         id: 1,
         type: "Kitsune",
         name: "Yuki",
-        price: 4500
+        price: 4500,
+        image: "../assets/Images/adopt2.png"
     },
     {
         id: 2,
         type: "Griffon",
         name: "Aurelia",
-        price: 6500
+        price: 6500,
+        image: "../assets/Images/adopt3.png"
     },
     {
         id: 3,
         type: "Water Wisp",
         name: "Lumina",
-        price: 40000
+        price: 40000,
+        image: "../assets/Images/adopt4.png"
     },
     {
         id: 4,
         type: "Pegasus",
         name: "Starwind",
-        price: 5000
+        price: 5000,
+        image: "../assets/Images/adopt5.png"
     },
     {
         id: 5,
         type: "Forest Spirit",
         name: "Briar",
-        price: 3500
+        price: 3500,
+        image: "../assets/Images/adopt6.png",
     },
 
 ];
@@ -159,6 +165,7 @@ let addToCart = (event) => {
     let creatureName = creatureDatabase[creatureId].name;
     let creatureType = creatureDatabase[creatureId].type;
     let creaturePrice = creatureDatabase[creatureId].price;
+    let creatureImage = creatureDatabase[creatureId].image;
 
     console.log(`Creature ID: ${creatureId} Type: ${creatureType}`); 
     notification(creatureQuantity, creatureType, "+"); 
@@ -191,6 +198,7 @@ let addToCart = (event) => {
     name: creatureName,
     type: creatureType,
     price: creaturePrice,
+    image: creatureImage,
     quantity: creatureQuantity,
     total: creaturePrice * creatureQuantity 
     };
@@ -217,7 +225,8 @@ let refreshCartHtml = () => {
 
         let htmlString = `
             <div class="cartTableItem" id="creatureId${cart[i].id}">
-                <div class="creatureQuantity">${cart[i].quantity}</div>
+                <div><img class="creatureImage" src=${cart[i].image} alt=""></div>
+                <div class="creatureQuantity"> ${cart[i].quantity}</div>
                 <div class="creatureType">${cart[i].type}</div>
                 <div class="creatureName">${cart[i].name}</div>
                 <div class="creaturePrice">R ${cart[i].price}</div>
@@ -292,6 +301,29 @@ let controls = (event) => {
     }
 
     console.log(cart); 
+}
+
+let finishScreenStatus = false;
+
+let toggleFinishScreen = () => {
+
+    cart = [];
+    overallTotal = 0;
+    document.querySelectorAll(".cartTableItem").forEach(el => el.remove());
+    totalElement.textContent = "R " + overallTotal;
+    document.querySelector(".empty").style.display = "flex";
+
+    finishScreenStatus = !finishScreenStatus;
+
+    if (finishScreenStatus) {
+        document.querySelector("#returnBtn").style.display = "flex";
+        document.querySelector("#finishAdoptionBtn").style.display = "none";
+
+        document.querySelector(".cartTable").style.display = "none";
+        document.querySelector(".thank").style.display = "flex";
+        document.querySelector(".leaveCradle").style.display = "none";
+        document.querySelector(".finishBox").style.justifyContent = "center";
+    } 
 }
 
 // ---------- FORM SYSTEM ----------------- //

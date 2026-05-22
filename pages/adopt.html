@@ -642,9 +642,15 @@
             <img src="../assets/Images/basketIcon.png" alt="">
             <h1>Cradle</h1>
         </div>
+
+        <div class="thank">
+            <div>Thank you for your Purchase!❤️</div>
+            <img src="../assets/Images/successImg2.png" alt="">
+        </div>
         
         <div class="cartTable">
             <div class="cartTableHeadings">
+                <p>Creature</p>
                 <p>Quantity</p>
                 <p>Type</p>
                 <p>Name</p>
@@ -654,6 +660,7 @@
             </div>
             <div class="cartTableListContainer">
                 <!-- <div class="cartTableItem" id="creatureId">
+                    <div><img class="creatureImage" src="../assets/Images/adopt5.png" alt=""></div>
                     <div class="creatureQuantity">1</div>
                     <div class="creatureType">Test</div>
                     <div class="creatureName">Test</div>
@@ -686,7 +693,12 @@
 
             <button class="leaveCradle" onclick="toggleCradle()">Continue Searching<img src="../assets/Images/basketWhiteIcon.png" alt="" class="icon"></button>
 
-            <a href="../index.html"><button class="finish">Finish Adoption</button></a>
+            <div>
+                <button class="finish" id="finishAdoptionBtn" onclick="
+                    toggleFinishScreen()">Finish Adoption</button>
+
+                <a href="../index.html" id="returnBtn"><button class="finish" onclick="toggleFinishScreen()">Return to Home Page</button></a>
+            </div>
         </div>
 
     </div>
