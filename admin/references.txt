@@ -24,4 +24,5 @@ W3Schools.com. (2026). W3schools.com. https://www.w3schools.com/jsref//met_win_s
 
 ‌HTML a target Attribute. (n.d.). Www.w3schools.com. https://www.w3schools.com/tags/att_a_target.asp
 
-‌
+‌W3Schools.com. (2026). W3schools.com. https://www.w3schools.com/js/js_looping.asp
+

@@ -366,13 +366,15 @@ let toggleDropdown = () => {
 let filter = () => {
     let input = document.getElementById("searchInput").value.toUpperCase();
 
-    document.querySelectorAll("#dropDown a").forEach(link => {
-        link.style.display = link.textContent.toUpperCase().includes(input) ? "" : "none"
+    document.querySelectorAll("#dropDown a").forEach(dropDownItem => {
+        let dropDownItemText = dropDownItem.textContent.toUpperCase();
+        let isMatch = dropDownItemText.includes(input);
+        dropDownItem.style.display = isMatch ? "" : "none";
     });
 }
 
-document.querySelectorAll("#dropDown a").forEach(link => {
-    link.addEventListener("click", toggleDropdown)
+document.querySelectorAll("#dropDown a").forEach(dropDownItem => {
+    dropDownItem.addEventListener("click", toggleDropdown)
 });
 
 document.getElementById("searchInput").addEventListener("focus", toggleDropdown);
