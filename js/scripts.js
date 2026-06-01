@@ -170,6 +170,8 @@ let addToCart = (event) => {
         return; 
     }
 
+    document.querySelector(".empty").style.display = "none";
+
     let creatureId = event.target.closest(".adoptButtons").id;
 
     let creatureName = creatureDatabase[creatureId].name;
@@ -282,10 +284,14 @@ let controls = (event) => {
                 let string = item.type
                 overallTotal -= item.total; 
                 cart.splice(cartIndex, 1); 
+                localStorage.setItem("cart", JSON.stringify(cart));
+                localStorage.setItem("overallTotal", JSON.stringify(overallTotal));
                 notification(0, item.type, "remove")
                 console.log("Removed: " + item.type + "from cart" )
             } else {
                 cart[cartIndex] = item; 
+                localStorage.setItem("cart", JSON.stringify(cart));
+                localStorage.setItem("overallTotal", JSON.stringify(overallTotal));
                 notification(1, item.type, "-")
                 console.log("New Quantity: " + cart[cartIndex].quantity);
             }
@@ -296,6 +302,8 @@ let controls = (event) => {
             item.total = item.quantity * item.price;
             overallTotal += item.price;
             cart[cartIndex] = item; 
+            localStorage.setItem("cart", JSON.stringify(cart));
+            localStorage.setItem("overallTotal", JSON.stringify(overallTotal));
             notification(1, item.type, "+")
             console.log("New Quantity: " + cart[cartIndex].quantity);
             break;
@@ -303,6 +311,8 @@ let controls = (event) => {
         case "removeItem":
             overallTotal -= item.total; 
             cart.splice(cartIndex, 1); 
+            localStorage.setItem("cart", JSON.stringify(cart));
+            localStorage.setItem("overallTotal", JSON.stringify(overallTotal));
             notification(0, item.type, "remove")
             break;
     }
@@ -314,9 +324,6 @@ let controls = (event) => {
     } else {
         document.querySelector(".empty").style.display = "none";
     }
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-    localStorage.setItem("overallTotal", JSON.stringify(overallTotal));
 
     console.log(cart); 
 }
