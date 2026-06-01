@@ -42,7 +42,7 @@
                 <div class="searchBar">
                 <img src="../assets/Images/searchIcon.png" alt="" class="icon" id="searchIcon">
                 <input class="searchInput" type="text" placeholder="Search..." id="searchInput">
-                <img src="../assets/Images/basketIcon.png" alt="" class="icon" id="basketIcon">
+                <a href="./pages/adopt.html"><img src="../assets/Images/basketIcon.png" alt="" class="icon" id="basketIcon"></a>
                 </div>
                 <div id="dropDown">
                     <a href="#Azuron">Blue Dragon - Azuron</a>
@@ -142,6 +142,78 @@
 
         <a href="./pages/adopt.html"><button>Cradle a Legend</button></a>
     </section>
+
+     <div class="notificationContainer">
+        <div class="notification"></div>
+    </div>
+
+    <div class="cradleContainer">
+        <div class="cartHeading">
+            <img src="../assets/Images/basketIcon.png" alt="">
+            <h1>Cradle</h1>
+        </div>
+
+        <div class="thank">
+            <div>Thank you for your Purchase!❤️</div>
+            <img src="../assets/Images/successImg2.png" alt="">
+        </div>
+        
+        <div class="cartTable">
+            <div class="cartTableHeadings">
+                <p>Creature</p>
+                <p>Quantity</p>
+                <p>Type</p>
+                <p>Name</p>
+                <p>Price</p>
+                <p>Total</p>
+                <p>Controls</p>
+            </div>
+            <div class="cartTableListContainer">
+                <!-- <div class="cartTableItem" id="creatureId">
+                    <div><img class="creatureImage" src="../assets/Images/adopt5.png" alt=""></div>
+                    <div class="creatureQuantity">1</div>
+                    <div class="creatureType">Test</div>
+                    <div class="creatureName">Test</div>
+                    <div class="creaturePrice">R2000</div>
+                    <div class="creatureTotal">R2000</div>
+                    <div class="cartTableControls">
+                        <button class="minusItem" onclick="controls(event)">-</button>
+                        <button class="plusItem" onclick="controls(event)">+</button>
+                        <button class="removeItem" onclick="controls(event)">X</button>
+                    </div>
+                </div> -->
+
+                <div class="empty">Cradle Empty...</div>
+
+                <div class="bottomContainer">
+                    <div class="totalContainer">
+                        <div>Total</div>
+                        <div class="total">R 0</div>
+                    </div>
+                    <div class="clearContainer">
+                        <button class="clear" onclick="clearCart()">Clear All</button>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+
+        <div class="finishBox">
+
+            <button class="leaveCradle" onclick="toggleCradle()">Continue Searching<img src="../assets/Images/basketWhiteIcon.png" alt="" class="icon"></button>
+
+            <div>
+                <button class="finish" id="finishAdoptionBtn" onclick="
+                    toggleFinishScreen()">Finish Adoption</button>
+
+                <a href="../index.html" id="returnBtn"><button class="finish" onclick="toggleFinishScreen()">Return to Home Page</button></a>
+            </div>
+        </div>
+
+    </div>
+
+    <button class="viewCradle" onclick="toggleCradle()"><div>View Cradle</div><img src="../assets/Images/basketWhiteIcon.png" alt="" class="icon"></button>
 
     <footer>
         <div class="footerContainer">

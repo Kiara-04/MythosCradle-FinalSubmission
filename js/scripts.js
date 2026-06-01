@@ -59,15 +59,27 @@ let creatureDatabase = [
 
 ];
 
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let overallTotal = JSON.parse(localStorage.getItem("overallTotal")) || 0;
 
-let overallTotal = 0;
+let isCartEmpty = () => {
+    if (cart.length == 0) {
+        document.querySelector(".empty").style.display = "flex";
+    } else {
+        document.querySelector(".empty").style.display = "none";
+        refreshCartHtml();
+    }
+}
 
 let totalElement = document.querySelector(".total")
 
 let clearCart = () => {
     cart = [];
+    localStorage.setItem("cart", JSON.stringify(cart));
+
     overallTotal = 0;
+    localStorage.setItem("overallTotal", JSON.stringify(overallTotal));
+    
     document.querySelectorAll(".cartTableItem").forEach(el => el.remove());
 
     totalElement.textContent = "R " + overallTotal;
@@ -158,8 +170,6 @@ let addToCart = (event) => {
         return; 
     }
 
-    document.querySelector(".empty").style.display = "none";
-
     let creatureId = event.target.closest(".adoptButtons").id;
 
     let creatureName = creatureDatabase[creatureId].name;
@@ -187,8 +197,10 @@ let addToCart = (event) => {
 
         console.log(cart); 
 
-        creatureQuantity = 0; 
-        updateQuantity(event, "reset", creatureQuantity);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        localStorage.setItem("overallTotal", JSON.stringify(overallTotal));
+
+        updateQuantity(event, "reset");
 
         return; 
     }
@@ -210,6 +222,9 @@ let addToCart = (event) => {
     refreshCartHtml();
 
     updateQuantity(event, "reset"); 
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("overallTotal", JSON.stringify(overallTotal));
 
     console.log(cart); 
 
@@ -300,6 +315,9 @@ let controls = (event) => {
         document.querySelector(".empty").style.display = "none";
     }
 
+    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("overallTotal", JSON.stringify(overallTotal));
+
     console.log(cart); 
 }
 
@@ -308,7 +326,11 @@ let finishScreenStatus = false;
 let toggleFinishScreen = () => {
 
     cart = [];
+    localStorage.setItem("cart", JSON.stringify(cart));
+
     overallTotal = 0;
+    localStorage.setItem("overallTotal", JSON.stringify(overallTotal));
+
     document.querySelectorAll(".cartTableItem").forEach(el => el.remove());
     totalElement.textContent = "R " + overallTotal;
     document.querySelector(".empty").style.display = "flex";
@@ -325,6 +347,8 @@ let toggleFinishScreen = () => {
         document.querySelector(".finishBox").style.justifyContent = "center";
     } 
 }
+
+window.addEventListener("DOMContentLoaded", isCartEmpty); 
 
 // ---------- FORM SYSTEM ----------------- //
 
